@@ -142,7 +142,7 @@ class _Statemachine(object):
 					if len(connection.remote_address)>0:
 						remote_addr=connection.remote_address[0]
 						remote_port=connection.remote_address[1]
-					yield pid,p.name,local_addr,local_port,remote_addr,remote_port,connection.status
+					yield pid,p.name(),local_addr,local_port,remote_addr,remote_port,connection.status
 			except psutil._error.AccessDenied:
 				pass
 	

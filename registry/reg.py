@@ -485,13 +485,17 @@ class _Reg(object):
 			[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce]
 			[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\\Userinit]
 			[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run]
+			[HKEY_LOCAL_MACHINE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Run]
+			[HKEY_LOCAL_MACHINE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\RunOnce]
 			
-			[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run]
-			[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnceEx]
-			[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce]
-			[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices]
-			[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce]
-			[HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows\CurrentVersion\Run]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows\CurrentVersion\RunOnceEx]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows\CurrentVersion\RunOnce]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows\CurrentVersion\RunServices]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows NT\CurrentVersion\Windows]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run]
+			[HKEY_USERS\XXX\Software\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Run]
 		'''
 		self.logger.info("Getting startup programs from registry")
 		software = '\Software'
@@ -507,7 +511,9 @@ class _Reg(object):
 						'\Software\Microsoft\Windows\CurrentVersion\RunOnceEx',
 						'\Microsoft\Windows\CurrentVersion\RunServices\\',
 						'\Microsoft\Windows\CurrentVersion\RunServicesOnce\\',
-						'\Microsoft\Windows NT\CurrentVersion\Winlogon\\Userinit\\']
+						'\Microsoft\Windows NT\CurrentVersion\Winlogon\\Userinit\\',
+						'\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Run\\',
+						'\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\RunOnce\\']
 				for path in paths:
 					try:
 						full_path = str_sid + software + path
@@ -525,7 +531,9 @@ class _Reg(object):
 					'\Microsoft\Windows\CurrentVersion\RunServices\\',
 					'\Microsoft\Windows\CurrentVersion\RunServicesOnce\\',
 					'\Microsoft\Windows NT\CurrentVersion\Windows\\',
-					'\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run']
+					'\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run',
+					'\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Run\\',
+					'\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\RunOnce\\']
 			for path in paths:
 				try:
 					full_path = software + path
