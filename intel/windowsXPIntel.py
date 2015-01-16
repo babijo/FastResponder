@@ -27,16 +27,3 @@ class WindowsXPFiles(_intel):
 	def __init__(self,params):
 		super(WindowsXPFiles,self).__init__(params)
 	
-	def __list_named_pipes(self):
-		return super(WindowsXPFiles,self)._list_named_pipes()
-	
-	def _list_windows_prefetch(self):
-		return super(WindowsXPFiles,self)._list_windows_prefetch()		
-	def csv_print_list_named_pipes(self):
-		super(WindowsXPFiles,self). _csv_list_named_pipes(self._list_named_pipes())
-		
-	def csv_print_list_windows_prefetch(self):
-		super(WindowsXPFiles,self)._csv_windows_prefetch(self._list_windows_prefetch())
-	
-	def csv_ie_history(self):
-		super(WindowsXPFiles, self)._ie_history(['Local Settings\*\History.IE5'])
