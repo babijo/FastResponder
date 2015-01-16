@@ -77,8 +77,10 @@ def profile_used(path,options):
 	options['output_type']=config.get('output','type')
 	options['output_destination']=config.get('output','destination')
 	options['output_dir']=config.get('output','dir')
-	options['dump']=config.get('dump','dump')
-	options['yara_rules']=config.get('yara','yara-rules')
+	if config.has_section('dump'):
+		options['dump']=config.get('dump','dump')
+	if config.has_section('yara'):
+		options['yara_rules']=config.get('yara','yara-rules')
 	return options
 
 def create_dir(dir):
@@ -120,7 +122,7 @@ def parse_config_file(config_file,options):
 	''' Parse config file specified in argument, or default config file (CEV.conf) '''
 	# If no config_file was specified, fallback to bundled config
 	if config_file == None:
-		config_file = 'CEV.conf'
+		config_file = 'FastResponder.conf'
 	else:
 		# If a config_file was specified but doesn't exist, tell the user and quit
 		if not os.path.isfile(config_file):
