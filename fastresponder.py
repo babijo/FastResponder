@@ -136,7 +136,7 @@ def parse_config_file(config_file,options):
 
 def set_command_line_options(options, args):
 	''' Override 'options' with command line options specified in 'args' '''
-	for option in [ 'output_type', 'output_dir', 'dump']:
+	for option in [ 'output_type', 'output_dir', 'dump','yara_rules']:
 		if getattr(args, option):
 			options[option] = getattr(args, option)
 	
