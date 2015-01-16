@@ -78,6 +78,7 @@ def profile_used(path,options):
 	options['output_destination']=config.get('output','destination')
 	options['output_dir']=config.get('output','dir')
 	options['dump']=config.get('dump','dump')
+	options['yara_rules']=config.get('yara','yara-rules')
 	return options
 
 def create_dir(dir):
@@ -106,7 +107,7 @@ def parse_command_line():
 	parser.add_argument('--share',dest='share')
 	parser.add_argument('--dump',dest='dump', help='use: --dump ram if you want to dump ram. To list dump functionalities, --dump list')
 	parser.add_argument('--profile',dest='profile', help='--profile yourfile.conf. The filepath must be absolute')
-
+	parser.add_argument('--yara-rules',dest='yara_rules',help='path of yara rules')
 	args = parser.parse_args()
 			
 	if args.dump=="list":
@@ -213,4 +214,4 @@ def main(options):
 if __name__ == "__main__":
 	options = set_options()
 	sys.exit(main(options))
-		
+	

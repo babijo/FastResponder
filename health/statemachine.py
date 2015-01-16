@@ -143,8 +143,10 @@ class _Statemachine(object):
 						remote_addr=connection.remote_address[0]
 						remote_port=connection.remote_address[1]
 					yield pid,p.name(),local_addr,local_port,remote_addr,remote_port,connection.status
-			except psutil._error.AccessDenied:
+			except psutil.AccessDenied:
+				self.logger.error(traceback.format_exc())
 				pass
+				
 	
 	def _list_services(self):
 		services =self.wmi.Win32_Service()

@@ -23,10 +23,10 @@
 from __future__ import unicode_literals
 
 import datetime
-import hashlib
 import logging
 import os
 import traceback
+
 
 from utils import 	get_int_from_reversed_string, look_for_outlook_dirs, get_userprofiles_from_reg,\
 					look_for_files, zip_archive, get_csv_writer, write_to_csv, record_sha256_logs, process_sha256
@@ -41,7 +41,7 @@ class _FS(object):
 		self.computer_name=params['computer_name']
 		self.output_dir=params['output_dir']
 		self.logger=params['logger']
-
+			
 	def _list_named_pipes(self):
 		for p in look_for_files('\\\\.\\pipe\\*'):
 			yield p
@@ -163,29 +163,6 @@ class _FS(object):
 	def _ie_history(self, directories_to_search):
 		self.__data_from_userprofile("IEHistory", directories_to_search)
 
-	def csv_sha256(self,path=os.environ['SYSTEMDRIVE']+'\\'):
-		try:
-			list_files=os.listdir(unicode(path))
-		except Exception as e:
-			self.logger.warn("Cannot list " + path)
-			return
-		for f in list_files:
-			d=os.path.join(path,f)
-			if os.path.isdir(d):
-				self.csv_sha256(d)
-			elif os.path.isfile(d):
-				try:
-					sha = process_sha256(d)
-					with open(self.output_dir + '\\' + self.computer_name + '_sha256.csv', 'ab') as output:
-						csv_writer = get_csv_writer(output)	
-						write_to_csv(['sha256',d,sha.hexdigest()], csv_writer)
-				except UnicodeError:
-					pass
-				except IOError:
-					pass
-				except ValueError:
-					pass
-	
 	def _csv_list_named_pipes(self,pipes):
 		with open(self.output_dir + '\\' + self.computer_name + '_named_pipes.csv', 'wb') as output:
 			csv_writer = get_csv_writer(output)

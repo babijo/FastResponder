@@ -30,7 +30,7 @@ import pkgutil
 class Factory():
 	def __filter_packages(self,modules,directories,output_dir):
 		# Remove 'dump'
-		for m in [ 'dump' ]:
+		for m in [ 'dump','intel' ]:
 			if m in directories and m not in modules:
 				directories.remove(m)
 		
@@ -51,7 +51,7 @@ class Factory():
 		if 'dump' in directories:
 			directories.remove('dump')
 			directories.insert(0, 'dump')
-			
+	
 		return directories
 
 	def _list_packages(self):
