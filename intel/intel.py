@@ -81,7 +81,7 @@ class _intel(object):
                 list_files=os.listdir(unicode(path))
         except Exception as e:
             self.logger.error(traceback.format_exc().decode(sys.stdin.encoding))    
-            
+            return
         for f in list_files:
             d=os.path.join(path,f)
             if os.path.isdir(d):
