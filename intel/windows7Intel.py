@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 from intel import _intel
 import os
 
-class Windows7Files(_intel):
+class Windows7Intel(_intel):
 	def __init__(self,params):
-		super(Windows7Files,self).__init__(params)
+		super(Windows7Intel,self).__init__(params)
 		

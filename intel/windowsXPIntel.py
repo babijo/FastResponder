@@ -23,7 +23,7 @@
 from __future__ import unicode_literals
 from intel import _intel
 
-class WindowsXPFiles(_intel):
+class WindowsXPIntel(_intel):
 	def __init__(self,params):
-		super(WindowsXPFiles,self).__init__(params)
+		super(WindowsXPIntel,self).__init__(params)
 	
