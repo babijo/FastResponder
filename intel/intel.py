@@ -56,6 +56,8 @@ class _intel(object):
             self.extractCerfif=params['extractCertif']    
     def _extractSignature(self,filename):
         matches=self.rules.match(data=open(filename,'rb').read())
+        issuer=''
+        subject=''
         for m in matches:
             if str(m)=='mz_executable':
                 pe = PeParser(filename)
@@ -63,6 +65,7 @@ class _intel(object):
                     issuer=pe.signature.getissuer()
                     subject=pe.signature.getsubject()
                     return issuer,subject
+        return issuer,subject
     def csv_yara(self,path=os.environ['SYSTEMDRIVE']+'\\'):
         try:
             if os.path.isdir(path):
@@ -77,7 +80,7 @@ class _intel(object):
             try:
                 if os.path.isfile(d):    
                     matches = self.rules.match(data=open(d,'rb').read())
-                    if matches:
+                    if matches: 
                         sha = process_sha256(d)
                         for m in matches.get('main',[]):
                             with open(self.output_dir + '\\' + self.computer_name + '_yara.csv', 'ab') as output:
