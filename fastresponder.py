@@ -24,6 +24,7 @@ from __future__ import unicode_literals
 
 import ConfigParser
 import argparse
+from datetime import datetime
 import inspect
 import logging
 import multiprocessing
@@ -31,12 +32,11 @@ import os
 import platform
 import sys
 import traceback
-from datetime import datetime
+import yaml
+
 from factory.factory import Factory
-from settings import USERS_FOLDER, EXTRACT_DUMP, OS, CEV_ROOT
+from settings import USERS_FOLDER, EXTRACT_DUMP,EXTRACT_INTEL, OS
 import settings
-
-
 
 
 def set_logger(options):
@@ -79,8 +79,12 @@ def profile_used(path,options):
 	options['output_dir']=config.get('output','dir')
 	if config.has_section('dump'):
 		options['dump']=config.get('dump','dump')
-	if config.has_section('yara'):
-		options['yara_rules']=config.get('yara','yara-rules')
+	if config.has_section('intel'):
+		options['intel']=config.get('intel','intel')
+ 		if config.has_option('intel', 'yara-rules'):
+ 			options['yara_rules']=config.get('intel','yara-rules')
+ 		if config.has_option('intel','extractCertif'):
+ 			options['extractCertif']=yaml.load(config.get('intel','extractCertif'))
 	return options
 
 def create_dir(dir):
@@ -202,6 +206,15 @@ def main(options):
 					try:
 						if options['output_type'] in EXTRACT_DUMP[m]:
 							getattr(instance, EXTRACT_DUMP[m])()
+					except Exception:
+						options['logger'].error(traceback.format_exc())
+				continue
+			if 'intel' in str(cl):
+				for m in options['intel'].split(','):
+					try:
+						if options['output_type'] in EXTRACT_INTEL[m]:
+							print EXTRACT_INTEL[m]
+							getattr(instance,EXTRACT_INTEL[m])()
 					except Exception:
 						options['logger'].error(traceback.format_exc())
 				continue

@@ -31,6 +31,10 @@ EXTRACT_DUMP={
 'mbr':'csv_mbr'
 }
 
+EXTRACT_INTEL={
+               'sha256': 'csv_sha256',
+               'yara' : 'csv_yara'
+               }
 NETWORK_ADAPTATER={
 0:"Ethernet 802.3",
 1:"Token Ring 802.5",
