@@ -34,7 +34,7 @@ import sys
 import traceback
 import yaml
 
-from factory.factory import Factory
+import factory.factory as factory
 from settings import USERS_FOLDER, EXTRACT_DUMP,EXTRACT_INTEL, OS
 import settings
 
@@ -190,15 +190,13 @@ def set_options():
 	return options
 
 def main(options):
-	f = Factory()
-
 	set_logger(options)
 	options['output_dir']=create_output_dir(options['output_dir'])
 
-	modules = f.load_modules(options['packages'], options['output_dir'])
+	modules = factory.load_modules(options['packages'], options['output_dir'])
 	
 	for m in modules:
-		classes = f.load_classes(m, options['OS'], options['release'])
+		classes = factory.load_classes(m, options['OS'], options['release'])
 		for cl in classes:
 			instance = cl(options)
 			if 'dump' in str(cl):

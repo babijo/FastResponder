@@ -1,5 +1,9 @@
 [profiles]
 packages=all,dump
+[intel]
+intel=sha256
+yara-rules=intel/yara/yara_rules.yara
+extractCertif=False
 [dump]
 dump=mbr
 [output]

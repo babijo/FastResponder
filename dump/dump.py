@@ -30,7 +30,7 @@ import subprocess
 import sys
 import time
 from disk_analysis import DiskAnalysis
-from analyzemft.mftsession import _MftSession
+from _analyzemft.mftsession import _MftSession
 from mbr import Mbr
 from environment_settings import Partitions, Disks, OperatingSystem,\
 	EnvironmentVariable
