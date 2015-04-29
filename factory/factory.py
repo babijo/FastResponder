@@ -79,8 +79,8 @@ def list_packages(self, filters, os_name, release):
 
 
 def __filter_packages(modules, directories, output_dir):
-    # Remove 'dump' and 'filecatcher' if they are not explicitely specified
-    for m in ['dump', 'filecatcher']:
+    # Remove 'intel', 'dump' and 'filecatcher' if they are not explicitely specified
+    for m in ['intel', 'dump', 'filecatcher']:
         if m in directories and m not in modules:
             directories.remove(m)
 
