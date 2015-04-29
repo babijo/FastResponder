@@ -54,10 +54,29 @@ class UnicodeWriter:
 		self.encoder = codecs.getincrementalencoder(encoding)()
 
 	def writerow(self, row):
-		try:
-			self.writer.writerow([s.encode("utf-8") if s else '' for s in row])
-		except:
-			traceback.print_exc()
+		encodings = ["ascii", "utf-8", "latin1", "utf-16le", sys.stdin.encoding]
+		columns = []
+		for s in row:
+			if s:
+				found = False
+				for encoding in encodings:
+					try:
+						if type(s) != "str" and type(s) != "unicode":
+							s = str(s)
+						columns.append(s.decode(encoding).encode("utf-8", "ignore"))
+						found = True
+						break
+					except UnicodeEncodeError:
+						pass
+					except UnicodeDecodeError:
+						pass
+				if not found:
+					# last hope
+					columns.append("".join([a for a in s]).encode("utf-8", "ignore"))
+			else:
+				columns.append("")
+		self.writer.writerow(columns)
+
 		# Fetch UTF-8 output from the queue ...
 		data = self.queue.getvalue()
 		data = data.decode("utf-8")
@@ -322,6 +341,10 @@ def get_csv_writer(csvfile):
 def write_to_csv(arr_data, csv_writer):
 	''' Writes contents to a CSV file and encodes the array of strings in UTF-8 '''
 	csv_writer.writerow(arr_data)
+
+def write_list_to_csv(arr_data, csv_writer):
+	"""Writes a list"s contents to a CSV file using UTF-8"""
+	csv_writer.writerows(arr_data)
 
 def get_architecture():
 	if sys.maxsize > 2**32:
